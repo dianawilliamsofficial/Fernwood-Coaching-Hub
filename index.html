@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fernwood Getting Started Coaching Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --charcoal-dark: #2A2A2A;
+  --charcoal-mid: #3D3D3D;
+  --charcoal-light: #5A5A5A;
+  --charcoal-pale: #F0F0F0;
+  --magenta: #C8007D;
+  --magenta-light: #D93B96;
+  --magenta-pale: #FCE8F5;
+  --gold: #C9A84C;
+  --gold-light: #E0C070;
+  --gold-pale: #FAF5E8;
+  --cream: #FAFAF8;
+  --mid: #555555;
+  --light: #999999;
+  --border: rgba(42,42,42,0.13);
+  --shadow: 0 4px 28px rgba(42,42,42,0.10);
+  --shadow-lg: 0 16px 56px rgba(42,42,42,0.15);
+  --purple: #6B3FA0;
+  --purple-pale: #F0EAF8;
+  --teal: #5A9B9E;
+  --teal-pale: #E3EFF0;
+  --green: #2E7D32;
+  --green-pale: #E8F5E9;
+  --grey-card: #9E9E9E;
+  --pink-card: #D06B9E;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal-dark); min-height: 100vh; }
+
+/* PASSWORD SCREEN */
+#passwordScreen { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:var(--charcoal-dark); padding:32px; }
+#passwordScreen .pw-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:40px 36px; max-width:420px; width:100%; text-align:center; }
+#passwordScreen .pw-logo { width:56px; height:56px; background:var(--magenta); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-weight:900; color:white; font-size:24px; margin:0 auto 20px; }
+#passwordScreen h2 { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:white; margin-bottom:8px; }
+#passwordScreen p { color:rgba(255,255,255,0.6); font-size:14px; margin-bottom:28px; line-height:1.6; }
+#passwordScreen input { width:100%; padding:14px 18px; border-radius:10px; border:1.5px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.08); color:white; font-size:16px; font-family:'DM Sans',sans-serif; outline:none; margin-bottom:14px; text-align:center; letter-spacing:3px; }
+#passwordScreen input::placeholder { letter-spacing:0; color:rgba(255,255,255,0.3); }
+#passwordScreen input:focus { border-color:var(--magenta); }
+#passwordScreen .pw-error { color:#FF6B6B; font-size:13px; margin-bottom:12px; display:none; }
+#passwordScreen button { width:100%; padding:14px; font-size:15px; background:var(--magenta); color:white; border:none; border-radius:10px; font-weight:600; cursor:pointer; font-family:'DM Sans',sans-serif; }
+#passwordScreen button:hover { background:var(--magenta-light); }
+#mainContent { display:none; }
+
+/* HEADER */
+.header { background: var(--charcoal-dark); position: sticky; top: 0; z-index: 300; box-shadow: 0 2px 20px rgba(0,0,0,0.22); }
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-mark { width: 40px; height: 40px; background: var(--magenta); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 900; color: white; font-size: 19px; }
+.logo-text { font-family: 'Playfair Display', serif; color: white; font-size: 17px; font-weight: 600; line-height: 1.2; }
+.logo-sub { color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; }
+.header-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 24px; padding: 6px 16px; font-size: 12px; color: var(--gold-light); font-weight: 500; white-space: nowrap; }
+
+/* HERO */
+.hero { background: var(--charcoal-dark); padding: 72px 32px 130px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -80px; right: -100px; width: 520px; height: 520px; background: radial-gradient(circle, rgba(200,0,125,0.22) 0%, transparent 65%); pointer-events: none; }
+.hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: var(--cream); clip-path: ellipse(60% 100% at 50% 100%); }
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(200,0,125,0.4); background: rgba(200,0,125,0.12); border-radius: 4px; padding: 6px 18px; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; color: #F08BC5; margin-bottom: 26px; font-weight: 500; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 6vw, 66px); font-weight: 900; color: white; line-height: 1.02; margin-bottom: 18px; max-width: 820px; letter-spacing: -0.5px; }
+.hero h1 em { color: #F08BC5; font-style: italic; font-weight: 400; display: block; }
+.hero-rule { width: 52px; height: 2px; background: var(--magenta); margin: 24px 0; }
+.hero-desc { color: rgba(255,255,255,0.75); font-size: 17px; line-height: 1.75; max-width: 620px; font-weight: 300; }
+.hero-stats { display: flex; gap: 52px; margin-top: 44px; flex-wrap: wrap; }
+.hero-stat { flex: 0 0 auto; }
+.hero-stat-num { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900; color: white; line-height: 1; margin-bottom: 6px; }
+.hero-stat-label { font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); font-weight: 600; }
+
+/* WRAPPER */
+.wrapper { max-width: 1100px; margin: -70px auto 0; padding: 0 32px 80px; position: relative; z-index: 2; }
+
+/* PSA FRAMEWORK BOX */
+.psa-box { background: var(--gold-pale); border-radius: 20px; padding: 32px 36px; margin-bottom: 48px; box-shadow: var(--shadow-lg); border: 1px solid rgba(201,168,76,0.25); border-left: 5px solid var(--gold); }
+.psa-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.psa-grid { display: flex; flex-direction: column; gap: 18px; }
+.psa-row { display: flex; align-items: flex-start; gap: 18px; }
+.psa-letter { width: 42px; height: 42px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+.psa-text h4 { font-size: 17px; font-weight: 700; color: var(--charcoal-dark); margin-bottom: 4px; }
+.psa-text p { font-size: 14px; color: var(--charcoal-mid); line-height: 1.6; }
+
+/* CONVERSATION FLOW */
+.flow-box { background: white; border-radius: 20px; padding: 28px 32px; margin-bottom: 48px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.flow-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 18px; }
+.flow-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.flow-step { padding: 10px 16px; border-radius: 10px; font-size: 13.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+.flow-step.green { background: var(--green); color: white; }
+.flow-step.pink { background: var(--magenta); color: white; }
+.flow-step.neutral { background: var(--charcoal-pale); color: var(--charcoal-dark); }
+.flow-arrow { color: var(--light); font-size: 18px; font-weight: 300; }
+
+/* SECTION */
+.section { margin-bottom: 56px; }
+.section-header { margin-bottom: 24px; }
+.section-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--magenta); font-weight: 700; margin-bottom: 8px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: var(--charcoal-dark); margin-bottom: 8px; letter-spacing: -0.3px; }
+.section-desc { color: var(--mid); font-size: 15px; line-height: 1.7; max-width: 680px; }
+.section-sub { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--charcoal-light); font-weight: 700; margin: 32px 0 18px; padding-left: 4px; border-left: 3px solid var(--magenta); padding-left: 12px; }
+
+/* MODULE GRID */
+.module-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+@media (max-width: 780px) { .module-grid { grid-template-columns: 1fr; } }
+
+/* MODULE CARD */
+.module-card { background: white; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.25s, box-shadow 0.25s; }
+.module-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.module-card.coming-soon { opacity: 0.88; }
+
+.card-header { padding: 24px 26px 22px; color: white; position: relative; overflow: hidden; }
+.card-header.green { background: var(--green); }
+.card-header.purple { background: var(--purple); }
+.card-header.magenta { background: var(--magenta); }
+.card-header.teal { background: var(--teal); }
+.card-header.gold { background: var(--gold); }
+.card-header.grey { background: var(--grey-card); }
+.card-header.pink { background: var(--pink-card); }
+.card-header.dark { background: var(--charcoal-dark); }
+
+.card-num { position: absolute; top: 16px; right: 26px; font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: rgba(255,255,255,0.18); font-style: italic; line-height: 1; }
+.card-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.18); backdrop-filter: blur(4px); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-bottom: 14px; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+.card-subtitle { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.45; }
+
+.card-body { padding: 20px 26px; flex: 1; }
+.card-desc { color: var(--mid); font-size: 13.5px; line-height: 1.65; margin-bottom: 16px; }
+.card-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.meta-chip { display: inline-flex; align-items: center; gap: 5px; background: var(--charcoal-pale); color: var(--charcoal-dark); padding: 5px 11px; border-radius: 8px; font-size: 11.5px; font-weight: 500; }
+
+.card-footer { padding: 0 26px 24px; }
+.card-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 14px 18px; background: var(--charcoal-dark); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+.card-btn:hover { background: var(--magenta); transform: translateY(-1px); }
+.card-btn.disabled { background: var(--charcoal-pale); color: var(--light); cursor: not-allowed; }
+.card-btn.disabled:hover { background: var(--charcoal-pale); transform: none; }
+.card-btn .arrow { font-size: 17px; }
+
+/* SINGLE-CARD LAYOUT (for sole assessment) */
+.single-card-wrap { max-width: 540px; }
+
+/* QUICK REFERENCE */
+.quick-ref { background: var(--charcoal-dark); border-radius: 20px; padding: 36px 36px 32px; margin-top: 56px; color: white; }
+.quick-ref h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+.ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 720px) { .ref-grid { grid-template-columns: 1fr; } }
+.ref-item { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 14px; transition: background 0.2s; }
+.ref-item:hover { background: rgba(255,255,255,0.09); }
+.ref-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.ref-text strong { display: block; font-size: 14px; font-weight: 600; color: white; margin-bottom: 2px; }
+.ref-text span { font-size: 12.5px; color: rgba(255,255,255,0.6); }
+
+/* FOOTER */
+.footer { text-align: center; padding: 40px 32px; color: var(--light); font-size: 12.5px; margin-top: 40px; border-top: 1px solid var(--border); }
+.footer strong { color: var(--charcoal-dark); display: block; margin-bottom: 4px; font-size: 13px; }
+
+@media (max-width: 600px) {
+  .hero { padding: 52px 24px 110px; }
+  .wrapper { padding: 0 20px 60px; }
+  .section-title { font-size: 24px; }
+  .psa-box { padding: 24px; }
+  .flow-box { padding: 22px 24px; }
+  .quick-ref { padding: 28px 24px; }
+  .hero-stats { gap: 32px; }
+  .hero-stat-num { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD SCREEN -->
+<div id="passwordScreen">
+  <div class="pw-card">
+    <div class="pw-logo">F</div>
+    <h2>Coaching Hub</h2>
+    <p>This hub is for Fernwood Fitness staff only. Enter your access code to continue.</p>
+    <input type="password" id="pwInput" placeholder="Enter access code" onkeydown="if(event.key==='Enter')checkPassword()" />
+    <div class="pw-error" id="pwError">Incorrect access code. Please try again.</div>
+    <button onclick="checkPassword()">Access Hub →</button>
+    <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,0.3);">Contact your manager if you need the access code.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">F</div>
+      <div>
+        <div class="logo-text">Fernwood Fitness</div>
+        <div class="logo-sub">Fernwood Getting Started Coaching Hub</div>
+      </div>
+    </div>
+    <div class="header-badge">75+ Clubs Nationally</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🎓 Getting Started Coaching Platform</div>
+    <h1>Master Every<br><em>Getting Started Conversation</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-desc">Video coaching sessions, role play practice and objection handling modules — all in one place. Because we're not here to sell gym memberships. We're here to change women's lives.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">Coaching Modules</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">PSA</div>
+        <div class="hero-stat-label">Sales Framework</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5 min</div>
+        <div class="hero-stat-label">Per Session</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- PSA FRAMEWORK -->
+  <div class="psa-box">
+    <div class="psa-label">✦ The Fernwood Sales Framework — Used in Every Module</div>
+    <div class="psa-grid">
+      <div class="psa-row">
+        <div class="psa-letter">P</div>
+        <div class="psa-text">
+          <h4>Problem</h4>
+          <p>Identify what the real problem is — always go back to their goals</p>
+        </div>
+      </div>
+      <div class="psa-row">
+        <div class="psa-letter">S</div>
+        <div class="psa-text">
+          <h4>Solution</h4>
+          <p>Offer the direct solution that solves their specific problem</p>
+        </div>
+      </div>
+      <div class="psa-row">
+        <div class="psa-letter">A</div>
+        <div class="psa-text">
+          <h4>Ask</h4>
+          <p>Ask again for the sale — "Platinum or Reformer Pilates?"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONVERSATION FLOW -->
+  <div class="flow-box">
+    <div class="flow-label">The Getting Started Conversation — Step by Step</div>
+    <div class="flow-steps">
+      <span class="flow-step green">📋 Getting to Know You</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step green">🏃‍♀️ The Tour</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step pink">💰 Price Present</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step neutral">🤫 Ask + Stay Silent</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step neutral">✅ Yes! or</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step neutral">🤔 Handle Objection</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step neutral">🏆 Invite Her to Get Started</span>
+    </div>
+  </div>
+
+  <!-- CORE COACHING MODULES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Video Coaching Modules</div>
+      <h2 class="section-title">Getting Started Coaching — Complete in Order</h2>
+      <p class="section-desc">Each module pairs a real prospect scenario with live coaching from Mia. Work through them in order to build your full toolkit — starting with the three core stages of the conversation, then layering objection handling on top.</p>
+    </div>
+
+    <div class="section-sub">The Three Core Stages</div>
+
+    <div class="module-grid">
+
+      <!-- Module 01 — Getting to Know You -->
+      <div class="module-card coming-soon">
+        <div class="card-header green">
+          <div class="card-num">01</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">Getting to Know You</div>
+          <div class="card-subtitle">The discovery conversation that shapes everything</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Mia coaches the GTKYF framework — uncovering her real goals, the deadline she's anchored to, and the emotional reason behind why she walked through the door today.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👩 Discovery stage</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 02 — The Tour -->
+      <div class="module-card coming-soon">
+        <div class="card-header green">
+          <div class="card-num">02</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">The Tour</div>
+          <div class="card-subtitle">Feature, benefit, experience — connect it to her goals</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Mia coaches how to walk the club floor with purpose — tying every feature back to the benefit it delivers and the experience she'll have. Every stop connects to the goals she shared in GTKYF.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">🏃‍♀️ Tour stage</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 03 — Price Presentation -->
+      <div class="module-card coming-soon">
+        <div class="card-header magenta">
+          <div class="card-num">03</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">Price Presentation</div>
+          <div class="card-subtitle">The full price present + upsells + the invitation</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Mia coaches the complete price presentation — Flexi, Focus and Flourish with the two-option close, the FIIT30, Reformer and Platinum upsells, and the invitation to get started.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">💰 Price stage</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-sub">Objection Handling Modules</div>
+
+    <div class="module-grid">
+
+      <!-- Module 04 — I Need to Think About It -->
+      <div class="module-card coming-soon">
+        <div class="card-header purple">
+          <div class="card-num">04</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">"I Need to Think About It"</div>
+          <div class="card-subtitle">Isolate the real objection behind the stall</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Sarah stalls after the price presentation. Mia coaches you to go back to her goals, act a little confused, and ask the one question that reveals the real objection.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 1 recording</span>
+            <span class="meta-chip">👩🏽 Sarah — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 05 — I Don't Have the Time (LIVE) -->
+      <div class="module-card">
+        <div class="card-header magenta">
+          <div class="card-num">05</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">"I Don't Have the Time"</div>
+          <div class="card-subtitle">The energy flip + 24/7 access + FIIT30</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Priya reveals she's exhausted and can't see when she'd come. Three turns of real coaching from Mia — from the stall all the way to inviting her to get started.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👩🏽 Priya — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="https://fernwoodsalescoaching.netlify.app" target="_blank" class="card-btn">
+            <span>Start Coaching Session</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 06 — It's Too Expensive -->
+      <div class="module-card coming-soon">
+        <div class="card-header teal">
+          <div class="card-num">06</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">"It's Too Expensive"</div>
+          <div class="card-subtitle">Value reframe + payment plan options</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Jane says it's too much money. Mia coaches the difference between a value objection and a financial objection — and how to handle each one.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👩 Jane — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 07 — I Need to Ask My Partner -->
+      <div class="module-card coming-soon">
+        <div class="card-header gold">
+          <div class="card-num">07</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">"I Need to Ask My Partner"</div>
+          <div class="card-subtitle">Facilitate the conversation, offer the call</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Jane wants to run it past her partner first. Mia coaches how to acknowledge the relationship respectfully while keeping the decision in her hands — and offering to join the conversation if it helps.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👩 Jane — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 08 — I Want to Look Around -->
+      <div class="module-card coming-soon">
+        <div class="card-header grey">
+          <div class="card-num">08</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">"I Want to Look Around"</div>
+          <div class="card-subtitle">The women-only advantage + isolate the decision</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">The prospect wants to check out other gyms first. Mia coaches how to reinforce the Fernwood women-only difference and isolate what would make her choose us.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👱‍♀️ Sophie — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 09 — Can I Just Do the Trial -->
+      <div class="module-card coming-soon">
+        <div class="card-header purple">
+          <div class="card-num">09</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">"Can I Just Do the Trial?"</div>
+          <div class="card-subtitle">Flip the trial into a full membership</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Jane wants to try before committing. Mia coaches the trial flip — making the full membership feel like the safer, smarter option by focusing on what the trial doesn't include.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👩 Jane — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Module 10 — The Bridging Technique -->
+      <div class="module-card coming-soon">
+        <div class="card-header pink">
+          <div class="card-num">10</div>
+          <div class="card-badge">🎬 Video Coaching</div>
+          <div class="card-title">The Bridging Technique</div>
+          <div class="card-subtitle">Acknowledge, bridge, own the message</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Sophie already exercises. Mia coaches bridging — a technique used by politicians and CEOs to acknowledge what someone says and redirect to the message you need them to hear.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 5 minutes</span>
+            <span class="meta-chip">🎥 3 recordings</span>
+            <span class="meta-chip">👱‍♀️ Sophie — prospect</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="card-btn disabled">
+            <span>Coming Soon</span>
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KNOWLEDGE ASSESSMENT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-eyebrow">Knowledge Assessment</div>
+      <h2 class="section-title">Test Your Knowledge</h2>
+      <p class="section-desc">A multiple choice assessment covering the most common sales objections. Select the best response for each scenario and get immediate feedback. Results logged automatically.</p>
+    </div>
+
+    <div class="single-card-wrap">
+      <!-- A1 — Objection Handling Assessment -->
+      <div class="module-card">
+        <div class="card-header green">
+          <div class="card-num">A1</div>
+          <div class="card-badge">📝 Assessment</div>
+          <div class="card-title">Objection Handling Assessment</div>
+          <div class="card-subtitle">Test your objection responses</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Multiple choice scenarios covering the most common sales objections. Select the best response for each situation and get immediate feedback.</p>
+          <div class="card-meta">
+            <span class="meta-chip">⏱ 10 minutes</span>
+            <span class="meta-chip">📊 Logged to Sheet</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="https://fernwoodsalescoaching.netlify.app" target="_blank" class="card-btn">
+            <span>Start Assessment</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="quick-ref">
+    <h2>Quick Reference</h2>
+    <div class="ref-grid">
+      <div class="ref-item">
+        <div class="ref-icon">📋</div>
+        <div class="ref-text">
+          <strong>PSA Framework</strong>
+          <span>Problem → Solution → Ask</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-icon">💬</div>
+        <div class="ref-text">
+          <strong>Objection Scripts</strong>
+          <span>All 7 key objections</span>
+        </div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-icon">🏆</div>
+        <div class="ref-text">
+          <strong>Invitation to Get Started</strong>
+          <span>Platinum or Reformer Pilates?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Fernwood Fitness Getting Started Coaching Hub</strong>
+  Because we're not here to sell gym memberships. We're here to change women's lives.
+</div>
+
+</div><!-- /#mainContent -->
+
+<script>
+function checkPassword() {
+  var pw = document.getElementById('pwInput').value.trim().toLowerCase();
+  var valid = ['fernwood2024', 'coaching', 'fernwoodcoaching'];
+  if (valid.includes(pw)) {
+    document.getElementById('passwordScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    try { sessionStorage.setItem('fw_hub_auth', '1'); } catch(e) {}
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+try {
+  if (sessionStorage.getItem('fw_hub_auth') === '1') {
+    document.getElementById('passwordScreen').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+  }
+} catch(e) {}
+</script>
+
+</body>
+</html>
